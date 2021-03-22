@@ -3,19 +3,32 @@ const http = require('http');
 const express = require('express');
 const connectDB = require('./config/db');
 const socketio = require('socket.io');
+const bodyParser = require('body-parser');
 
 const formatMessage = require('./utils/messages');
 const { userJoin, getCurrentUser, getRoomsUser, userLeave } = require('./utils/users');
+
+// Routes
+const userRoutes = require('./routes/userRoutes');
 
 const app = express();
 const server = http.createServer(app);
 // adding socket functionality to our server
 const io = socketio(server);
 
+// Connect to MongoDB
 connectDB();
+
+app.use(express.json());
+app.use(express.urlencoded({
+    extended: true
+}));
 
 // serving static files
 app.use(express.static(path.join(__dirname, 'public')));
+
+// use routes
+app.use('/api/users', userRoutes);
 
 const botName = 'Socket.io bot';
 
