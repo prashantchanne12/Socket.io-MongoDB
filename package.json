@@ -1,0 +1,19 @@
+{
+  "name": "socket.io-chat",
+  "version": "1.0.0",
+  "description": "Realtime chat app with rooms",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server",
+    "dev": "nodemon server"
+  },
+  "author": "Prashant Channe",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "express": "^4.17.1",
+    "moment": "^2.29.1",
+    "mongoose": "^5.12.1",
+    "socket.io": "^4.0.0"
+  }
+}
