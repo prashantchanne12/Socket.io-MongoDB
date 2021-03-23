@@ -8,16 +8,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
         integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
     <link rel="stylesheet" href="css/style.css" />
-    <title>Socket.io Chat</title>
+    <title>Singup</title>
 </head>
 
 <body>
     <div class="join-container">
         <header class="join-header">
-            <h1><i class="fas fa-smile"></i> Socket.io Chat</h1>
+            <h1><i class="fas fa-smile"></i>Chat Signup</h1>
         </header>
         <main class="join-main">
-            <form id="join-form">
+            <form id="signup">
                 <div class="form-control">
                     <label for="username">Username</label>
                     <input type="text" name="username" id="username" placeholder="Enter username" required />
@@ -27,24 +27,21 @@
                     <label for="password">Password</label>
                     <input type="password" name="password" id="password" placeholder="Enter password" required />
                 </div>
-                <div class="form-control">
-                    <label for="room">Room name</label>
-                    <input type="text" name="room" id="room" placeholder="Enter room" required />
-                </div>
-                <button type="submit" class="btn">Join Chat</button>
+                <button type="submit" class="btn">Sign up</button>
             </form>
         </main>
 
         <center>
-            <p id="singup-text">Don't have an account <a href="signup.html">Sign up</a></p>
+            <p id="singup-text">Already have an account <a href="index.html">Join</a></p>
         </center>
     </div>
+
 
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.10.1/qs.min.js"
         integrity="sha512-aTKlYRb1QfU1jlF3k+aS4AqTpnTXci4R79mkdie/bp6Xm51O5O3ESAYhvg6zoicj/PD6VYY0XrYwsWLcvGiKZQ=="
         crossorigin="anonymous"></script>
-    <script src="./js/form.js"></script>
+    <script src="./js/signup.js"></script>
 </body>
 
 </html>

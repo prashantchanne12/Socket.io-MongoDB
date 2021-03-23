@@ -159,7 +159,7 @@ a {
   margin-bottom: 5px;
 }
 
-.join-main input[type='text'] {
+.join-main input {
   font-size: 16px;
   padding: 5px;
   height: 40px;
@@ -181,6 +181,11 @@ a {
 #err {
   padding-top: 0rem;
   font-style: italic;
+}
+
+#singup-text {
+  color: black;
+  padding-top: 1rem;
 }
 
 @media (max-width: 700px) {

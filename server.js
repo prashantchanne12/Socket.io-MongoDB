@@ -1,3 +1,4 @@
+const axios = require('axios');
 const path = require('path');
 const http = require('http');
 const express = require('express');
@@ -9,6 +10,7 @@ const { userJoin, getCurrentUser, getRoomsUser, userLeave } = require('./utils/u
 
 // Routes
 const userRoutes = require('./routes/userRoutes');
+const chatRoutes = require('./routes/chatRoutes');
 
 const app = express();
 const server = http.createServer(app);
@@ -28,6 +30,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // use routes
 app.use('/api/users', userRoutes);
+app.use('/api/chats', chatRoutes);
 
 const botName = 'Socket.io bot';
 
@@ -54,12 +57,18 @@ io.on('connection', socket => {
     });
 
     // Listen for chat message
-    socket.on('chatMessage', (msg) => {
+    socket.on('chatMessage', async (msg) => {
 
         const user = getCurrentUser(socket.id);
 
         // Emitting message to all connected clients
         io.to(user.room).emit('message', formatMessage(user.username, msg));
+
+        await axios.post('http://localhost:3000/api/chats/', {
+            name: user.room,
+            username: user.username,
+            message: msg,
+        });
 
     });
 
