@@ -8,21 +8,17 @@ userRouter.post('/', async (req, res) => {
 
     try {
 
-        const { username, room } = req.body;
+        const { username } = req.body;
 
-        if (!room || !username) {
-            return res.status(400).send({ err: 'Invalid data' });
-        }
+        const userExists = await User.find({ username });
 
-        const userExists = await User.findOne({ username });
-
-        if (userExists) {
-            return res.status(400).send({ err: 'Username is already taken' });
+        if (userExists.length > 0) {
+            console.log('Username already exists');
+            return res.send({ err: 'Username is already taken' });
         }
 
         const user = await User.create({
             username,
-            room
         });
 
         if (user) {
@@ -30,7 +26,6 @@ userRouter.post('/', async (req, res) => {
             res.status(201).send({
                 _id: user._id,
                 username,
-                room,
             });
 
         }

@@ -3,7 +3,6 @@ const http = require('http');
 const express = require('express');
 const connectDB = require('./config/db');
 const socketio = require('socket.io');
-const bodyParser = require('body-parser');
 
 const formatMessage = require('./utils/messages');
 const { userJoin, getCurrentUser, getRoomsUser, userLeave } = require('./utils/users');

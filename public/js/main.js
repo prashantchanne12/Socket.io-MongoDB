@@ -8,8 +8,6 @@ const { username, room } = Qs.parse(location.search, {
     ignoreQueryPrefix: true,
 });
 
-// check if the username already exists
-checkUsername(username, room);
 
 // We have access to the IO because of script added in chat.html
 const socket = io();
@@ -31,6 +29,7 @@ socket.on('message', message => {
     // Scroll down
     chatMessages.scrollTop = chatMessages.scrollHeight;
 });
+
 
 // Message submit
 chatForm.addEventListener('submit', (e) => {
@@ -77,25 +76,3 @@ function outputUsers(users) {
 
 }
 
-
-// check usernamr in db
-async function checkUsername(username, room) {
-
-    const data = { username, room };
-
-    console.log(data);
-
-    try {
-
-        axios.post('/api/users/', data)
-            .then(res => {
-                console.log(res.data);
-            }).catch(err => {
-                console.log(err);
-            })
-
-    } catch (e) {
-        console.log(e);
-    }
-
-}

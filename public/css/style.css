@@ -178,6 +178,11 @@ a {
   width: 100%;
 }
 
+#err {
+  padding-top: 0rem;
+  font-style: italic;
+}
+
 @media (max-width: 700px) {
   .chat-main {
     display: block;

@@ -17,26 +17,26 @@
             <h1><i class="fas fa-smile"></i> Socket.io Chat</h1>
         </header>
         <main class="join-main">
-            <form action="chat.html">
+            <form id="join-form">
                 <div class="form-control">
                     <label for="username">Username</label>
-                    <input type="text" name="username" id="username" placeholder="Enter username..." required />
+                    <input type="text" name="username" id="username" placeholder="Enter username" required />
+                    <p id='err'></p>
                 </div>
                 <div class="form-control">
-                    <label for="room">Room</label>
-                    <select name="room" id="room">
-                        <option value="JavaScript">JavaScript</option>
-                        <option value="Python">Python</option>
-                        <option value="PHP">PHP</option>
-                        <option value="C#">C#</option>
-                        <option value="Ruby">Ruby</option>
-                        <option value="Java">Java</option>
-                    </select>
+                    <label for="room">Room name</label>
+                    <input type="text" name="room" id="room" placeholder="Enter room" required />
                 </div>
                 <button type="submit" class="btn">Join Chat</button>
             </form>
         </main>
     </div>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.10.1/qs.min.js"
+        integrity="sha512-aTKlYRb1QfU1jlF3k+aS4AqTpnTXci4R79mkdie/bp6Xm51O5O3ESAYhvg6zoicj/PD6VYY0XrYwsWLcvGiKZQ=="
+        crossorigin="anonymous"></script>
+    <script src="./js/form.js"></script>
 </body>
 
 </html>
