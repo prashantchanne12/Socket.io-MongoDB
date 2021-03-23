@@ -79,6 +79,7 @@ async function outputPrevMessages(name) {
 
         chatMessages.innerHTML = chats.join('');
 
+        chatMessages.scrollTop = chatMessages.scrollHeight;
 
     } catch (e) {
         console.log(e);
