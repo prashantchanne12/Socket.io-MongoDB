@@ -71,7 +71,7 @@ async function outputPrevMessages(name) {
 
         const chats = msgs.data.map(msg => `
         <div class="message">
-            <p class="meta">${msg.sender} <span>10:00 am</span></p>
+            <p class="meta">${msg.sender} <span>${moment(msg.time).format('h:mm a')}</span></p>
             <p class="text">
             ${msg.message}
             </p>
