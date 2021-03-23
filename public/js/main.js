@@ -16,9 +16,10 @@ const socket = io();
 socket.emit('joinRoom', { username, room });
 
 // Get room and users
-socket.on('roomUsers', ({ room, users }) => {
-    outputRoomName(room)
-    outputUsers(users)
+socket.on('roomUsers', async ({ room, users }) => {
+    await outputPrevMessages(room);
+    outputRoomName(room);
+    outputUsers(users);
 });
 
 // Listening for the message
@@ -60,6 +61,29 @@ function outputMessage(msg) {
     `;
 
     chatMessages.appendChild(div);
+}
+
+async function outputPrevMessages(name) {
+
+    try {
+        const msgs = await axios.get(`http://localhost:3000/api/chats?room=${name}`,
+        );
+
+        const chats = msgs.data.map(msg => `
+        <div class="message">
+            <p class="meta">${msg.sender} <span>10:00 am</span></p>
+            <p class="text">
+            ${msg.message}
+            </p>
+        </div>` )
+
+        chatMessages.innerHTML = chats.join('');
+
+
+    } catch (e) {
+        console.log(e);
+    }
+
 }
 
 // Add room name to document

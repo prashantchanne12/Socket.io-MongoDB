@@ -54,4 +54,26 @@ chatRouter.post('/', async (req, res) => {
 
 });
 
+chatRouter.get('/', async (req, res) => {
+
+    try {
+
+        const name = req.query.room;
+        const room = await Room.findOne({ name });
+
+        if (room) {
+            res.send(room.chats);
+        } else {
+            console.log('Room not found!');
+            res.status(400).send('Room not found!');
+        }
+
+    } catch (e) {
+        console.log(e);
+        res.status(400).send(e);
+
+    }
+
+});
+
 module.exports = chatRouter;
