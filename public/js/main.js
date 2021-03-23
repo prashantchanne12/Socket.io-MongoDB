@@ -16,11 +16,14 @@ const socket = io();
 socket.emit('joinRoom', { username, room });
 
 // Get room and users
-socket.on('roomUsers', async ({ room, users }) => {
-    await outputPrevMessages(room);
+socket.on('roomUsers', ({ room, users }) => {
     outputRoomName(room);
     outputUsers(users);
 });
+
+socket.on('fetchChats', async ({ room }) => {
+    await outputPrevMessages(room);
+})
 
 // Listening for the message
 socket.on('message', message => {
@@ -69,15 +72,32 @@ async function outputPrevMessages(name) {
         const msgs = await axios.get(`http://localhost:3000/api/chats?room=${name}`,
         );
 
-        const chats = msgs.data.map(msg => `
-        <div class="message">
-            <p class="meta">${msg.sender} <span>${moment(msg.time).format('h:mm a')}</span></p>
-            <p class="text">
-            ${msg.message}
-            </p>
-        </div>` )
+        // const messages = [];
 
-        chatMessages.innerHTML = chats.join('');
+        for (const msg of msgs.data) {
+
+            const div = document.createElement('div');
+            div.classList.add('message')
+
+            div.innerHTML = `
+                <p class="meta">${msg.sender} <span>${moment(msg.time).format('h:mm a')}</span></p>
+                <p class="text">
+                ${msg.message}
+                </p>`;
+
+            chatMessages.appendChild(div);
+
+        }
+
+        // const chats = msgs.data.map(msg => `
+        // <div class="message">
+        //     <p class="meta">${msg.sender} <span>${moment(msg.time).format('h:mm a')}</span></p>
+        //     <p class="text">
+        //     ${msg.message}
+        //     </p>
+        // </div>` )
+
+        // chatMessages.innerHTML = chats.join('');
 
         chatMessages.scrollTop = chatMessages.scrollHeight;
 

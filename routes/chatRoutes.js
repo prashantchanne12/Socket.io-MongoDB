@@ -64,7 +64,7 @@ chatRouter.get('/', async (req, res) => {
         if (room) {
             res.send(room.chats);
         } else {
-            console.log('Room not found!');
+            // console.log('Room not found!');
             res.status(400).send('Room not found!');
         }
 

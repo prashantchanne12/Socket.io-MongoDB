@@ -54,6 +54,11 @@ io.on('connection', socket => {
             room: user.room,
             users: getRoomsUser(user.room)
         });
+
+
+        socket.emit('fetchChats', {
+            room: user.room
+        });
     });
 
     // Listen for chat message
