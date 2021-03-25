@@ -2,12 +2,20 @@ const chatForm = document.getElementById('chat-form');
 const chatMessages = document.querySelector('.chat-messages');
 const roomName = document.getElementById('room-name');
 const userList = document.getElementById('users');
+const leaveRoom = document.querySelector('.leave-room-btn');
+
 
 // Get username and room from URL
 const { username, room } = Qs.parse(location.search, {
     ignoreQueryPrefix: true,
 });
 
+leaveRoom.addEventListener('click', e => {
+    e.preventDefault();
+
+    window.location.replace(`http://localhost:3000/room.html?username=${username}`);
+
+});
 
 // We have access to the IO because of script added in chat.html
 const socket = io();
