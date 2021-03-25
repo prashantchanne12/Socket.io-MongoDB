@@ -19,13 +19,14 @@ form.addEventListener('submit', async (e) => {
 
     const username = form.username.value.toLowerCase();
     const password = form.password.value;
-    const room = form.room.value.toLowerCase();
+    // const room = form.room.value.toLowerCase();
 
-    await addUserInDB(username, password, room);
+    // await addUserInDB(username, password, room);
+    await addUserInDB(username, password);
 
 });
 
-async function addUserInDB(username, password, room) {
+async function addUserInDB(username, password) {
 
     try {
 
@@ -34,7 +35,8 @@ async function addUserInDB(username, password, room) {
         if (res.data.err) {
             window.location.replace(`http://localhost:3000?error=${res.data.err}`);
         } else {
-            window.location.replace(`http://localhost:3000/chat.html?username=${username}&room=${room}`);
+            window.location.replace(`http://localhost:3000/room.html`);
+            // window.location.replace(`http://localhost:3000/chat.html?username=${username}&room=${room}`);
         }
 
     } catch (err) {

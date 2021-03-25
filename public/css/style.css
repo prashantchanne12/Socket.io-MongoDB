@@ -188,6 +188,15 @@ a {
   padding-top: 1rem;
 }
 
+.hidden {
+  display: none;
+}
+
+.join-room,
+.create-room {
+  padding-top: 0.75rem;
+}
+
 @media (max-width: 700px) {
   .chat-main {
     display: block;
