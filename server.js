@@ -42,6 +42,11 @@ io.on('connection', socket => {
         const user = userJoin(socket.id, username, room);
         socket.join(user.room);
 
+        // Fetching previous chats for the room
+        socket.emit('fetchChats', {
+            room: user.room
+        });
+
         // welcome current only current user / yourself
         socket.emit('message', formatMessage(botName, 'welcome to Socket.io chat'));
 
@@ -53,11 +58,6 @@ io.on('connection', socket => {
         io.to(user.room).emit('roomUsers', {
             room: user.room,
             users: getRoomsUser(user.room)
-        });
-
-
-        socket.emit('fetchChats', {
-            room: user.room
         });
     });
 
