@@ -35,7 +35,7 @@ async function addUserInDB(username, password) {
         if (res.data.err) {
             window.location.replace(`http://localhost:3000?error=${res.data.err}`);
         } else {
-            window.location.replace(`http://localhost:3000/room.html`);
+            window.location.replace(`http://localhost:3000/room.html?username=${res.data.username}`);
             // window.location.replace(`http://localhost:3000/chat.html?username=${username}&room=${room}`);
         }
 

@@ -197,6 +197,24 @@ a {
   padding-top: 0.75rem;
 }
 
+.join-room-btn,
+.create-room-btn {
+  width: 20%;
+  cursor: pointer;
+  margin-top: 0rem;
+  padding: 0.5rem 0.75rem;
+  outline: 0;
+  background-color: white;
+  border: 0;
+  color: var(--dark-color-a);
+  font-size: 1.05rem;
+}
+
+.room-err {
+  color: red;
+  padding-top: 0.75rem;
+}
+
 @media (max-width: 700px) {
   .chat-main {
     display: block;
