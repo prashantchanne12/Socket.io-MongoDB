@@ -45,14 +45,14 @@ createBtn.addEventListener('click', e => {
 joinRoomForm.addEventListener('submit', e => {
     e.preventDefault();
 
-    const roomName = joinRoomForm.roomname.value;
+    const roomName = joinRoomForm.roomname.value.toLowerCase();
     joinRoomName(roomName);
 });
 
 createRoomForm.addEventListener('submit', e => {
     e.preventDefault();
 
-    const roomName = createRoomForm.newroomname.value;
+    const roomName = createRoomForm.newroomname.value.toLowerCase();
     createAndJoinRoomName(roomName);
 });
 
@@ -60,6 +60,14 @@ createRoomForm.addEventListener('submit', e => {
 
 async function joinRoomName(roomName) {
     try {
+        const res = await axios.post('/api/users/joinRoom', { room: roomName });
+
+
+        if (res.data.err) {
+            window.location.replace(`http://localhost:3000/room.html?username=${userName}&error=${res.data.err}`);
+        } else {
+            window.location.replace(`http://localhost:3000/chat.html?username=${userName}&room=${res.data.name}`);
+        }
 
     } catch (e) {
         console.log(error);

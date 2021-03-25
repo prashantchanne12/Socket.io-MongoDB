@@ -93,4 +93,26 @@ userRouter.post('/createRoom', async (req, res) => {
 
 });
 
+userRouter.post('/joinRoom', async (req, res) => {
+
+    try {
+
+        const roomName = req.body.room;
+
+        // check if roomName exits
+        const roomExists = await Room.find({ name: roomName });
+
+        if (roomExists.length === 0) {
+            console.log('Room does not exists');
+            return res.send({ err: 'Room does not exists' });
+        }
+
+        res.send(roomExists[0]);
+
+    } catch (e) {
+        console.log(e);
+    }
+
+});
+
 module.exports = userRouter;
