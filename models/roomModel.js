@@ -8,6 +8,9 @@ const roomSchema = mongoose.Schema({
         sender: { type: String },
         time: { type: Date, default: new Date() }
     }],
+    created_by: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    active_users: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+    joined_users: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
 
 }, { timestamp: true });
 
