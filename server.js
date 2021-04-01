@@ -78,9 +78,14 @@ io.on('connection', socket => {
     });
 
     // Runs when client disconnects
-    socket.on('disconnect', () => {
+    socket.on('disconnect', async () => {
 
         const user = userLeave(socket.id);
+
+        await axios.post('http://localhost:3000/api/chats/leaveRoom', {
+            roomName: user.room,
+            username: user.username,
+        });
 
         if (user) {
             // Emit to everyone including yourself

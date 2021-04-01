@@ -146,7 +146,21 @@ async function updateRoom(userId, room, isCreatedByUser = false) {
         }
 
         room.active_users = [...room.active_users, userId];
-        room.joined_users = [...room.joined_users, userId];
+
+        // check if user has already joined the room
+        let isUserJoined = false;
+
+        room.joined_users.forEach(user => {
+            if (user.equals(userId)) {
+                isUserJoined = true;
+            }
+        });
+
+
+        if (!isUserJoined) {
+            room.joined_users = [...room.joined_users, userId];
+        }
+
 
         const newRoom = await room.save();
 
