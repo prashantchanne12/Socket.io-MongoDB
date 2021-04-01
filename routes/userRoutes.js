@@ -66,11 +66,20 @@ userRouter.post('/createRoom', async (req, res) => {
     try {
 
         const roomName = req.body.room;
-
-        console.log(req.user);
+        const username = req.body.username;
+        let userId;
 
         // check if roomName exits
         const roomExists = await Room.find({ name: roomName });
+
+        // get the user
+        const user = await User.findOne({ username: username });
+
+        if (user) {
+            userId = user._id;
+        } else {
+            return res.send({ err: `User not found with username ${username}` });
+        }
 
         if (roomExists.length !== 0) {
             console.log('Room already exists');
@@ -78,8 +87,9 @@ userRouter.post('/createRoom', async (req, res) => {
         }
 
         const newRoom = await Room.create({ name: roomName, chats: [] });
+        const updatedRoom = await updateRoom(userId, newRoom, isCreatedByUser = true);
 
-        if (newRoom) {
+        if (updatedRoom) {
             res.status(201).send(newRoom);
         } else {
             console.log('Error while creating new room');
@@ -98,6 +108,17 @@ userRouter.post('/joinRoom', async (req, res) => {
     try {
 
         const roomName = req.body.room;
+        const username = req.body.username;
+        let userId;
+
+        // get the user
+        const user = await User.findOne({ username: username });
+
+        if (user) {
+            userId = user._id;
+        } else {
+            return res.send({ err: `User not found with username ${username}` });
+        }
 
         // check if roomName exits
         const roomExists = await Room.find({ name: roomName });
@@ -107,6 +128,7 @@ userRouter.post('/joinRoom', async (req, res) => {
             return res.send({ err: 'Room does not exists' });
         }
 
+        await updateRoom(userId, roomExists[0]);
         res.send(roomExists[0]);
 
     } catch (e) {
@@ -114,5 +136,29 @@ userRouter.post('/joinRoom', async (req, res) => {
     }
 
 });
+
+
+async function updateRoom(userId, room, isCreatedByUser = false) {
+    try {
+
+        if (isCreatedByUser) {
+            room.created_by = userId;
+        }
+
+        room.active_users = [...room.active_users, userId];
+        room.joined_users = [...room.joined_users, userId];
+
+        const newRoom = await room.save();
+
+        if (newRoom) {
+            return newRoom;
+        } else {
+            throw new Error('Error while creating new room');
+        }
+
+    } catch (e) {
+        console.log(e);
+    }
+}
 
 module.exports = userRouter;

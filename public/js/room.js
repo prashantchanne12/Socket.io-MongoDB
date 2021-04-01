@@ -60,7 +60,7 @@ createRoomForm.addEventListener('submit', e => {
 
 async function joinRoomName(roomName) {
     try {
-        const res = await axios.post('/api/users/joinRoom', { room: roomName });
+        const res = await axios.post('/api/users/joinRoom', { room: roomName, username });
 
 
         if (res.data.err) {
@@ -76,7 +76,7 @@ async function joinRoomName(roomName) {
 
 async function createAndJoinRoomName(roomName) {
     try {
-        const res = await axios.post('/api/users/createRoom', { room: roomName });
+        const res = await axios.post('/api/users/createRoom', { room: roomName, username });
 
         if (res.data.err) {
             window.location.replace(`http://localhost:3000/room.html?username=${userName}&error=${res.data.err}`);
